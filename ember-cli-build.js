@@ -20,5 +20,10 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
+  if(app.env !== 'production') {
+      app.import('vendor/timemachine.js', {exports: {'vendor/timemachine': ['default']}});
+      app.import('vendor/ticket_fixtures.js');
+  }
+
   return app.toTree();
 };

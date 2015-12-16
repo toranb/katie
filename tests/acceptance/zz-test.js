@@ -1,11 +1,26 @@
-import { test } from 'qunit';
-import moduleForAcceptance from 'katie/tests/helpers/module-for-acceptance';
+import { test, module } from 'qunit';
+import startApp from 'katie/tests/helpers/start-app';
+import TF from 'katie/vendor/ticket_fixtures';
+import timemachine from 'vendor/timemachine';
 
-moduleForAcceptance('Acceptance | zz');
+module('Acceptance | zz', {
+    beforeEach() {
+        application = startApp();
+        timemachine.config({
+            dateString: 'December 25, 2014 13:12:59'
+        });
+    },
+    afterEach() {
+        timemachine.reset();
+        Ember.run(application, 'destroy');
+    }
+});
 
-test('1 visiting nothing does nothing', function(assert) {
+test('toran 1 visiting nothing does nothing', function(assert) {
   visit('/');
   andThen(function() {
+    console.log(new Date());
+    TF.generate('hi');
     assert.equal(currentURL(), '/');
   });
 });
